@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>StoreGG</title>
+        <title>StoreGG - Get a New Experience in Gaming</title>
 
         {/* Bootstrap css */}
         <link
