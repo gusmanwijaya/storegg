@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-interface StepItemProps {
+export interface StepItemProps {
   icon: "step1" | "step2" | "step3";
   title: string;
   description1: string;
