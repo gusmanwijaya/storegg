@@ -1,3 +1,5 @@
+import NumberFormat from "react-number-format";
+
 export interface NominalItemProps {
   _id: string;
   coinQuantity: number;
@@ -45,7 +47,15 @@ export default function NominalItem(props: NominalItemProps) {
               />
             </svg>
           </div>
-          <p className="text-lg color-palette-1 m-0">IDR {price}</p>
+          <p className="text-lg color-palette-1 m-0">
+            <NumberFormat
+              value={price}
+              prefix="Rp. "
+              displayType="text"
+              thousandSeparator="."
+              decimalSeparator=","
+            />
+          </p>
         </div>
       </label>
     </>
