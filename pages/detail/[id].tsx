@@ -17,18 +17,20 @@ export default function Detail() {
     },
   });
 
+  const [nominals, setNominals] = useState([]);
+  const [payments, setPayments] = useState([]);
+
   const getVoucherDetailAPI = useCallback(async (id) => {
-    const data = await getDetailVoucher(id);
-    console.log("Data : ", data);
-    setDataItem(data);
+    const response = await getDetailVoucher(id);
+    console.log("Data : ", response);
+    setDataItem(response.data);
+    setNominals(response.data.nominals);
+    setPayments(response.payment);
   }, []);
 
   useEffect(() => {
     if (isReady) {
-      console.log("Router sudah tersedia", query.id);
       getVoucherDetailAPI(query.id);
-    } else {
-      console.log("Router tidak tersedia");
     }
   }, [isReady, query.id, getVoucherDetailAPI]);
 
@@ -57,7 +59,7 @@ export default function Detail() {
               {/* Desktop: Game title */}
               <TopUpItem data={dataItem} type="desktop" />
               <hr />
-              <TopUpForm />
+              <TopUpForm nominals={nominals} payments={payments} />
             </div>
           </div>
         </div>

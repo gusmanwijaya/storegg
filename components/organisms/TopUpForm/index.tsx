@@ -1,7 +1,14 @@
 import NominalItem from "./NominalItem";
 import PaymentItem from "./PaymentItem";
 
-export default function TopUpForm() {
+export interface TopUpFormProps {
+  nominals: never[];
+  payments: never[];
+}
+
+export default function TopUpForm(props: TopUpFormProps) {
+  const { nominals, payments } = props;
+
   return (
     <>
       <form action="./checkout.html" method="POST">
@@ -28,24 +35,18 @@ export default function TopUpForm() {
             Nominal Top Up
           </p>
           <div className="row justify-content-between">
-            <NominalItem
-              _id="123"
-              coinQuantity={20}
-              coinName="GOLD"
-              price={50000}
-            />
-            <NominalItem
-              _id="124"
-              coinQuantity={20}
-              coinName="GOLD"
-              price={50000}
-            />
-            <NominalItem
-              _id="125"
-              coinQuantity={20}
-              coinName="GOLD"
-              price={50000}
-            />
+            {nominals.map((nominal) => {
+              return (
+                <NominalItem
+                  key={nominal._id}
+                  _id={nominal._id}
+                  coinQuantity={nominal.coinQuantity}
+                  coinName={nominal.coinName}
+                  price={nominal.price}
+                />
+              );
+            })}
+
             <div className="col-lg-4 col-sm-6">{/* Blank */}</div>
           </div>
         </div>
@@ -55,8 +56,18 @@ export default function TopUpForm() {
           </p>
           <fieldset id="paymentMethod">
             <div className="row justify-content-between">
-              <PaymentItem bankId="654" type="Transfer" name="BCA" />
-              <PaymentItem bankId="321" type="Transfer" name="Mandiri" />
+              {payments.map((payment) => {
+                return payment.banks.map((bank) => {
+                  return (
+                    <PaymentItem
+                      key={bank._id}
+                      bankId={bank._id}
+                      type={payment.type}
+                      name={bank.bankName}
+                    />
+                  );
+                });
+              })}
               <div className="col-lg-4 col-sm-6">{/* Blank */}</div>
             </div>
           </fieldset>

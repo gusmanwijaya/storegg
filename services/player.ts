@@ -16,5 +16,5 @@ export async function getDetailVoucher(id) {
   const response = await axios.get(`${ROOT_API}/${API_VERSION}/${URL}`);
 
   const axiosResponse = response.data;
-  return axiosResponse.data;
+  return axiosResponse;
 }
