@@ -3,18 +3,34 @@ import TopUpItem from "../../components/organisms/TopUpItem";
 import Navbar from "../../components/organisms/Navbar";
 import Footer from "../../components/organisms/Footer";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { getDetailVoucher } from "../../services/player";
 
 export default function Detail() {
   const { query, isReady } = useRouter();
 
+  const [dataItem, setDataItem] = useState({
+    name: "",
+    thumbnail: "",
+    category: {
+      name: "",
+    },
+  });
+
+  const getVoucherDetailAPI = useCallback(async (id) => {
+    const data = await getDetailVoucher(id);
+    console.log("Data : ", data);
+    setDataItem(data);
+  }, []);
+
   useEffect(() => {
     if (isReady) {
       console.log("Router sudah tersedia", query.id);
+      getVoucherDetailAPI(query.id);
     } else {
       console.log("Router tidak tersedia");
     }
-  }, [isReady]);
+  }, [isReady, query.id, getVoucherDetailAPI]);
 
   return (
     <>
@@ -35,11 +51,11 @@ export default function Detail() {
           <div className="row">
             <div className="col-xl-3 col-lg-4 col-md-5 pb-30 pb-md-0 pe-md-25 text-md-start">
               {/* Mobile: Game title */}
-              <TopUpItem type="mobile" />
+              <TopUpItem data={dataItem} type="mobile" />
             </div>
             <div className="col-xl-9 col-lg-8 col-md-7 ps-md-25">
               {/* Desktop: Game title */}
-              <TopUpItem type="desktop" />
+              <TopUpItem data={dataItem} type="desktop" />
               <hr />
               <TopUpForm />
             </div>
