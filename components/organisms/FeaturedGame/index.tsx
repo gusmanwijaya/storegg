@@ -1,6 +1,19 @@
 import GameItem from "../../molecules/GameItem";
+import { useEffect, useState, useCallback } from "react";
+import { getFeaturedGame } from "../../../services/player";
 
 export default function FeaturedGame() {
+  const [gameList, setGameList] = useState([]);
+
+  const getFeatureGameList = useCallback(async () => {
+    const data = await getFeaturedGame();
+    setGameList(data);
+  }, []);
+
+  useEffect(() => {
+    getFeatureGameList();
+  }, [getFeatureGameList]);
+
   return (
     <>
       <section className="featured-game pt-50 pb-50">
@@ -13,31 +26,14 @@ export default function FeaturedGame() {
             className="d-flex flex-row flex-lg-wrap overflow-setting justify-content-lg-between gap-lg-3 gap-4"
             data-aos="fade-up"
           >
-            <GameItem
-              thumbnail="/img/Thumbnail-1.png"
-              title="Super Mechs"
-              category="Mobile"
-            />
-            <GameItem
-              thumbnail="/img/Thumbnail-2.png"
-              title="Call of Duty: Modern"
-              category="PC"
-            />
-            <GameItem
-              thumbnail="/img/Thumbnail-3.png"
-              title="Mobile Legends"
-              category="Desktop"
-            />
-            <GameItem
-              thumbnail="/img/Thumbnail-4.png"
-              title="Clash of Clans"
-              category="Desktop"
-            />
-            <GameItem
-              thumbnail="/img/Thumbnail-5.png"
-              title="Valorant"
-              category="Desktop"
-            />
+            {gameList.map((item) => (
+              <GameItem
+                key={item._id}
+                thumbnail={`${process.env.NEXT_PUBLIC_API}/uploads/${item.thumbnail}`}
+                title={item.name}
+                category={item.category.name}
+              />
+            ))}
           </div>
         </div>
       </section>

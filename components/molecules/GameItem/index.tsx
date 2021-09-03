@@ -2,12 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export interface GameItemProps {
-  thumbnail:
-    | "/img/Thumbnail-1.png"
-    | "/img/Thumbnail-2.png"
-    | "/img/Thumbnail-3.png"
-    | "/img/Thumbnail-4.png"
-    | "/img/Thumbnail-5.png";
+  thumbnail: string;
   title: string;
   category: string;
 }
