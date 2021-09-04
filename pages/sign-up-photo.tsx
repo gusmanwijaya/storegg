@@ -1,7 +1,28 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useCallback, useEffect, useState } from "react";
+import { getGameCategory } from "../services/player";
 
-export default function signUpPhoto() {
+export default function SignUpPhoto() {
+  const [categories, setCategories] = useState([]);
+  const [favorite, setFavorite] = useState("");
+
+  const getGameCategoryAPI = useCallback(async () => {
+    const response = await getGameCategory();
+
+    console.log("Data : ", response);
+    setCategories(response);
+    setFavorite(response[0]._id);
+  }, []);
+
+  useEffect(() => {
+    getGameCategoryAPI();
+  }, [getGameCategoryAPI]);
+
+  const onSubmit = () => {
+    console.log("Favorite : ", favorite);
+  };
+
   return (
     <>
       <section className="sign-up-photo mx-auto pt-lg-227 pb-lg-227 pt-130 pb-50">
@@ -45,27 +66,31 @@ export default function signUpPhoto() {
                     name="category"
                     className="form-select d-block w-100 rounded-pill text-lg"
                     aria-label="Favorite Game"
+                    value={favorite}
+                    onChange={(event) => setFavorite(event.target.value)}
                   >
                     <option value="" disabled selected>
                       Select Category
                     </option>
-                    <option value="fps">First Person Shoter</option>
-                    <option value="rpg">Role Playing Game</option>
-                    <option value="arcade">Arcade</option>
-                    <option value="sport">Sport</option>
+                    {categories.map((category) => {
+                      return (
+                        <option key={category._id} value={category._id}>
+                          {category.name}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
               </div>
 
               <div className="button-group d-flex flex-column mx-auto">
-                <Link href="/sign-up-success">
-                  <a
-                    className="btn btn-create fw-medium text-lg text-white rounded-pill mb-16"
-                    role="button"
-                  >
-                    Create My Account
-                  </a>
-                </Link>
+                <button
+                  className="btn btn-create fw-medium text-lg text-white rounded-pill mb-16"
+                  type="button"
+                  onClick={onSubmit}
+                >
+                  Create My Account
+                </button>
                 <Link href="#">
                   <a
                     className="btn btn-tnc text-lg color-palette-1 text-decoration-underline pt-15"
