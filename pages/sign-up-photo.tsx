@@ -1,16 +1,28 @@
+/* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import { setSignUp } from "../services/auth";
 import { getGameCategory } from "../services/player";
+import { useRouter } from "next/router";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function SignUpPhoto() {
   const [categories, setCategories] = useState([]);
   const [favorite, setFavorite] = useState("");
+  const [avatar, setAvatar] = useState("");
+  const [avatarPreview, setAvatarPreview] = useState(null);
+  const [localForm, setLocalForm] = useState({
+    name: "",
+    email: "",
+  });
+  const router = useRouter();
 
   const getGameCategoryAPI = useCallback(async () => {
     const response = await getGameCategory();
 
-    console.log("Data : ", response);
     setCategories(response);
     setFavorite(response[0]._id);
   }, []);
@@ -19,8 +31,31 @@ export default function SignUpPhoto() {
     getGameCategoryAPI();
   }, [getGameCategoryAPI]);
 
-  const onSubmit = () => {
-    console.log("Favorite : ", favorite);
+  useEffect(() => {
+    const getLocalForm = localStorage.getItem("user-form");
+    setLocalForm(JSON.parse(getLocalForm));
+  }, []);
+
+  const onSubmit = async () => {
+    const getLocalForm = localStorage.getItem("user-form");
+    const form = JSON.parse(getLocalForm);
+    const data = new FormData();
+
+    data.append("avatar", avatar);
+    data.append("email", form.email);
+    data.append("password", form.password);
+    data.append("name", form.name);
+    data.append("favorite", favorite);
+
+    const result = await setSignUp(data);
+
+    if (result.error === 1) {
+      toast.error(result.message);
+    } else {
+      toast.success("Register Berhasil");
+      localStorage.removeItem("user-form");
+      router.push("/sign-up-success");
+    }
   };
 
   return (
@@ -33,26 +68,41 @@ export default function SignUpPhoto() {
                 <div className="mb-20">
                   <div className="image-upload text-center">
                     <label htmlFor="avatar">
-                      <Image
-                        src="/icon/upload.svg"
-                        width={120}
-                        height={120}
-                        alt="Icon Upload"
-                      />
+                      {avatarPreview ? (
+                        <img
+                          src={avatarPreview}
+                          className="img-upload"
+                          width={120}
+                          height={120}
+                          alt="Icon Upload"
+                        />
+                      ) : (
+                        <Image
+                          src="/icon/upload.svg"
+                          width={120}
+                          height={120}
+                          alt="Icon Upload"
+                        />
+                      )}
                     </label>
                     <input
                       id="avatar"
                       type="file"
                       name="avatar"
                       accept="image/png, image/jpeg"
+                      onChange={(event) => {
+                        const img = event.target.files[0];
+                        setAvatarPreview(URL.createObjectURL(img));
+                        return setAvatar(img);
+                      }}
                     />
                   </div>
                 </div>
                 <h2 className="fw-bold text-xl text-center color-palette-1 m-0">
-                  Shayna Anne
+                  {localForm.name}
                 </h2>
                 <p className="text-lg text-center color-palette-1 m-0">
-                  shayna@anne.com
+                  {localForm.email}
                 </p>
                 <div className="pt-50 pb-50">
                   <label
@@ -103,6 +153,8 @@ export default function SignUpPhoto() {
             </div>
           </form>
         </div>
+
+        <ToastContainer theme="colored" />
       </section>
     </>
   );
