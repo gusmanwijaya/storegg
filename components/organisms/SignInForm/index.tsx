@@ -34,7 +34,7 @@ export default function SignInForm() {
         Cookies.set("token", tokenBase64, {
           expires: 1,
         });
-        // router.push("/");
+        router.push("/");
       }
     }
   };
