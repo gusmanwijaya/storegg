@@ -6,6 +6,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { setSignIn } from "../../../services/auth";
 
+import Cookies from "js-cookie";
+
 export default function SignInForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,8 +28,13 @@ export default function SignInForm() {
       if (response.error) {
         toast.error(response.message);
       } else {
-        toast.success(response.message);
-        router.push("/");
+        toast.success("Login Berhasil");
+        const token = response.data.token;
+        const tokenBase64 = btoa(token);
+        Cookies.set("token", tokenBase64, {
+          expires: 1,
+        });
+        // router.push("/");
       }
     }
   };

@@ -33,14 +33,6 @@ export interface NominalsTypes {
   price: number;
 }
 
-export interface SignUpTypes {
-  name: string;
-  email: string;
-  password: string;
-  avatar: string;
-  favorite: string;
-}
-
 export interface SignInTypes {
   email: string;
   password: string;
