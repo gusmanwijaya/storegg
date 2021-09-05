@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function completeCheckout() {
   return (
     <>
@@ -264,13 +266,14 @@ export default function completeCheckout() {
             </p>
           </div>
           <div className="button-group d-flex flex-column mx-auto">
-            <a
-              className="btn btn-dashboard fw-medium text-lg text-white rounded-pill mb-16"
-              href="../member/overview.html"
-              role="button"
-            >
-              My Dashboard
-            </a>
+            <Link href="/member/transactions">
+              <a
+                className="btn btn-dashboard fw-medium text-lg text-white rounded-pill mb-16"
+                role="button"
+              >
+                My Dashboard
+              </a>
+            </Link>
             <a
               className="btn btn-whatsapp fw-medium text-lg color-palette-1 rounded-pill"
               href="#"
