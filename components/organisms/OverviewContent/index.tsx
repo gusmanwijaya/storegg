@@ -1,5 +1,9 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import {
+  HistoryTransactionTypes,
+  TopUpCategoriesTypes,
+} from "../../../services/data-types";
 import { getMemberOverview } from "../../../services/player";
 import Category from "./Category";
 import TableRow from "./TableRow";
@@ -8,20 +12,20 @@ export default function OverviewContent() {
   const [count, setCount] = useState([]);
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await getMemberOverview();
-      if (response.error) {
-        toast.error(response.message);
-      } else {
-        console.log("Data : ", response.data);
-        setCount(response.data.count);
-        setData(response.data.data);
-      }
+  const getMemberOverviewAPI = useCallback(async () => {
+    const response = await getMemberOverview();
+    if (response.error) {
+      toast.error(response.message);
+    } else {
+      console.log("Data : ", response.data);
+      setCount(response.data.count);
+      setData(response.data.data);
     }
-
-    fetchData();
   }, []);
+
+  useEffect(() => {
+    getMemberOverviewAPI();
+  }, [getMemberOverviewAPI]);
 
   const IMG = process.env.NEXT_PUBLIC_IMG;
 
@@ -36,7 +40,7 @@ export default function OverviewContent() {
             </p>
             <div className="main-content">
               <div className="row">
-                {count.map((item) => {
+                {count.map((item: TopUpCategoriesTypes) => {
                   return (
                     <Category
                       key={item._id}
@@ -67,7 +71,7 @@ export default function OverviewContent() {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map((item) => {
+                  {data.map((item: HistoryTransactionTypes) => {
                     return (
                       <TableRow
                         key={item._id}
