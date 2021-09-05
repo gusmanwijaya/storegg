@@ -2,8 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { setSignIn } from "../../../services/auth";
 
 import Cookies from "js-cookie";
@@ -99,8 +98,6 @@ export default function SignInForm() {
           </a>
         </Link>
       </div>
-
-      <ToastContainer theme="colored" />
     </>
   );
 }

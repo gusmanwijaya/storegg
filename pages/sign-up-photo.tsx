@@ -5,9 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { setSignUp } from "../services/auth";
 import { getGameCategory } from "../services/player";
 import { useRouter } from "next/router";
-
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 export default function SignUpPhoto() {
   const [categories, setCategories] = useState([]);
@@ -153,8 +151,6 @@ export default function SignUpPhoto() {
             </div>
           </form>
         </div>
-
-        <ToastContainer theme="colored" />
       </section>
     </>
   );
