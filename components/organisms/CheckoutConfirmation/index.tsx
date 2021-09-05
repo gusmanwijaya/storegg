@@ -52,6 +52,8 @@ export default function CheckoutConfirmation() {
       if (response.error) {
         toast.error(response.message);
       } else {
+        localStorage.removeItem("data-item");
+        localStorage.removeItem("data-topup");
         toast.success("Checkout Berhasil");
         router.push("/complete-checkout");
       }

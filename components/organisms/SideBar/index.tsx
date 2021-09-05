@@ -1,3 +1,8 @@
+import Image from "next/image";
+
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+
 import { UserTypes } from "../../../services/data-types";
 import Footer from "./Footer";
 import MenuItem from "./MenuItem";
@@ -10,6 +15,12 @@ interface SideBarProps {
 
 export default function SideBar(props: SideBarProps) {
   const { activeMenu, dataUser } = props;
+  const router = useRouter();
+
+  const onLogout = () => {
+    Cookies.remove("token");
+    router.push("/");
+  };
 
   return (
     <>
@@ -38,7 +49,26 @@ export default function SideBar(props: SideBarProps) {
               href="/member/edit-profile"
               active={activeMenu === "settings"}
             />
-            <MenuItem title="Log Out" icon="ic-menu-logout" href="/sign-in" />
+
+            <div className="item mb-30">
+              <div className="me-3">
+                <Image
+                  src={`/icon/ic-menu-logout.svg`}
+                  width={25}
+                  height={25}
+                  alt="Icon"
+                />
+              </div>
+              <p className="item-title m-0">
+                <a
+                  onClick={onLogout}
+                  role="button"
+                  className="text-lg text-decoration-none"
+                >
+                  Log Out
+                </a>
+              </p>
+            </div>
           </div>
           <Footer />
         </div>

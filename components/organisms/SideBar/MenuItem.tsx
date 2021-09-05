@@ -10,8 +10,7 @@ interface MenuItemProps {
     | "ic-menu-messages"
     | "ic-menu-card"
     | "ic-menu-reward"
-    | "ic-menu-setting"
-    | "ic-menu-logout";
+    | "ic-menu-setting";
   active?: boolean;
   href: string;
 }
