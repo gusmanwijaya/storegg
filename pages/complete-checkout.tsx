@@ -266,7 +266,7 @@ export default function completeCheckout() {
             </p>
           </div>
           <div className="button-group d-flex flex-column mx-auto">
-            <Link href="/member/transactions">
+            <Link href="/member">
               <a
                 className="btn btn-dashboard fw-medium text-lg text-white rounded-pill mb-16"
                 role="button"
@@ -276,7 +276,9 @@ export default function completeCheckout() {
             </Link>
             <a
               className="btn btn-whatsapp fw-medium text-lg color-palette-1 rounded-pill"
-              href="#"
+              href="https://wa.me/6281312397308?text=Saya%20sudah%20melakukan%20pembayaran"
+              target="_blank"
+              rel="noopener noreferrer"
               role="button"
             >
               WhatsApp ke Admin
