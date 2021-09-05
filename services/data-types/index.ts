@@ -39,7 +39,7 @@ export interface SignInTypes {
 }
 
 export interface UserTypes {
-  id: string;
+  _id: string;
   username: string;
   email: string;
   name: string;

@@ -21,11 +21,11 @@ export default function Auth() {
       const payload: JWTPayloadTypes = jwt_decode(jwtToken);
       const userFromPayload: UserTypes = payload.player;
       const IMG = process.env.NEXT_PUBLIC_IMG;
-      user.avatar = `${IMG}/${userFromPayload.avatar}`;
+      userFromPayload.avatar = `${IMG}/${userFromPayload.avatar}`;
       setIsLogin(true);
-      setUser(user);
+      setUser(userFromPayload);
     }
-  }, [user]);
+  }, []);
 
   const onLogout = () => {
     Cookies.remove("token");
