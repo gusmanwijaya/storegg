@@ -15,7 +15,6 @@ export default function CheckoutDetail() {
   useEffect(() => {
     const dataFromLocal = localStorage.getItem("data-topup");
     const dataTopUpLocal = JSON.parse(dataFromLocal!);
-    console.log("dataTopUpLocal : ", dataTopUpLocal);
     setDataTopUp(dataTopUpLocal);
   }, []);
 
