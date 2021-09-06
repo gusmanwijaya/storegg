@@ -63,8 +63,6 @@ export async function getServerSideProps({ req }: GetServerSideProps) {
   userFromPayload.avatar = `${IMG}/${userFromPayload.avatar}`;
 
   return {
-    props: {
-      user: userFromPayload,
-    },
+    props: {},
   };
 }

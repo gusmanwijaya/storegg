@@ -6,12 +6,13 @@ import { setSignUp } from "../services/auth";
 import { getGameCategory } from "../services/player";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import { CategoryTypes } from "../services/data-types";
 
 export default function SignUpPhoto() {
   const [categories, setCategories] = useState([]);
   const [favorite, setFavorite] = useState("");
-  const [avatar, setAvatar] = useState("");
-  const [avatarPreview, setAvatarPreview] = useState(null);
+  const [avatar, setAvatar] = useState<any>("");
+  const [avatarPreview, setAvatarPreview] = useState<any>(null);
   const [localForm, setLocalForm] = useState({
     name: "",
     email: "",
@@ -89,7 +90,7 @@ export default function SignUpPhoto() {
                       name="avatar"
                       accept="image/png, image/jpeg"
                       onChange={(event) => {
-                        const img = event.target.files[0];
+                        const img = event.target.files![0];
                         setAvatarPreview(URL.createObjectURL(img));
                         return setAvatar(img);
                       }}
@@ -120,7 +121,7 @@ export default function SignUpPhoto() {
                     <option value="" disabled selected>
                       Select Category
                     </option>
-                    {categories.map((category) => {
+                    {categories.map((category: CategoryTypes) => {
                       return (
                         <option key={category._id} value={category._id}>
                           {category.name}

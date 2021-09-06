@@ -1,8 +1,5 @@
-import Image from "next/image";
-
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-
 import { UserTypes } from "../../../services/data-types";
 import Footer from "./Footer";
 import MenuItem from "./MenuItem";

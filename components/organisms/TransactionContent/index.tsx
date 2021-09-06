@@ -27,7 +27,7 @@ export default function TransactionContent() {
 
   const IMG = process.env.NEXT_PUBLIC_IMG;
 
-  const onTabClick = (value) => {
+  const onTabClick = (value: string) => {
     setTab(value);
     getMemberTransactionAPI(value);
   };

@@ -16,15 +16,22 @@ interface EditProfileProps {
   token: string;
 }
 
+interface UserStateTypes {
+  name: string;
+  email: string;
+  phoneNumber: string;
+  avatar: any;
+}
+
 export default function EditProfile(props: EditProfileProps) {
   const { user, token } = props;
-  const [userState, setUserState] = useState({
+  const [userState, setUserState] = useState<UserStateTypes>({
     name: "",
     email: "",
     phoneNumber: "",
     avatar: "",
   });
-  const [avatarPreview, setAvatarPreview] = useState(null);
+  const [avatarPreview, setAvatarPreview] = useState<any>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -40,7 +47,6 @@ export default function EditProfile(props: EditProfileProps) {
     if (response.error) {
       toast.error(response.message);
     } else {
-      console.log("Update Profile : ", response);
       Cookies.remove("token");
       toast.success("Update Profile Berhasil");
       router.push("/sign-in");
@@ -83,7 +89,7 @@ export default function EditProfile(props: EditProfileProps) {
                       name="avatar"
                       accept="image/png, image/jpeg"
                       onChange={(event) => {
-                        const img = event.target.files[0];
+                        const img = event.target.files![0];
                         setAvatarPreview(URL.createObjectURL(img));
                         return setUserState({
                           ...user,
@@ -102,7 +108,7 @@ export default function EditProfile(props: EditProfileProps) {
                     type="text"
                     placeholder="Enter your name"
                     aria-describedby="name"
-                    onChange={(event) =>
+                    onChange={(event: any) =>
                       setUserState({
                         ...userState,
                         name: event.target.value,
@@ -131,7 +137,7 @@ export default function EditProfile(props: EditProfileProps) {
                     type="tel"
                     placeholder="Enter your phone number"
                     aria-describedby="phoneNumber"
-                    onChange={(event) =>
+                    onChange={(event: any) =>
                       setUserState({
                         ...userState,
                         phoneNumber: event.target.value,
