@@ -29,10 +29,17 @@ export default function TableRow(props: TableRowProps) {
             className="float-start me-3 mb-lg-0 mb-3"
             src={image}
             width={80}
-            height={60}
+            height={80}
             alt="Game Thumbnail"
           />
-          <div className="game-title-header">
+          <div
+            className="game-title-header"
+            style={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+          >
             <p className="game-title fw-medium text-start color-palette-1 m-0">
               {title}
             </p>

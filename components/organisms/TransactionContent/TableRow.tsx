@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import classNames from "classnames";
 import Link from "next/link";
+import NumberFormat from "react-number-format";
 
 interface TableRowProps {
   image: string;
@@ -8,7 +9,7 @@ interface TableRowProps {
   category: string;
   item: number;
   price: number;
-  status: "Pending" | "Success" | "Failed";
+  status: string;
 }
 
 export default function TableRow(props: TableRowProps) {
@@ -16,9 +17,9 @@ export default function TableRow(props: TableRowProps) {
 
   const statusClass = classNames({
     "float-start icon-status": true,
-    pending: status === "Pending",
-    success: status === "Success",
-    failed: status === "Failed",
+    pending: status === "pending",
+    success: status === "success",
+    failed: status === "failed",
   });
 
   return (
@@ -27,12 +28,19 @@ export default function TableRow(props: TableRowProps) {
         <th scope="row">
           <img
             className="float-start me-3 mb-lg-0 mb-3"
-            src={`/img/${image}.png`}
+            src={image}
             width={80}
-            height={60}
+            height={80}
             alt=""
           />
-          <div className="game-title-header">
+          <div
+            className="game-title-header"
+            style={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+          >
             <p className="game-title fw-medium text-start color-palette-1 m-0">
               {title}
             </p>
@@ -42,10 +50,18 @@ export default function TableRow(props: TableRowProps) {
           </div>
         </th>
         <td>
-          <p className="fw-medium color-palette-1 m-0">{item} Gold</p>
+          <p className="fw-medium color-palette-1 m-0">{item}</p>
         </td>
         <td>
-          <p className="fw-medium color-palette-1 m-0">Rp. {price}</p>
+          <p className="fw-medium color-palette-1 m-0">
+            <NumberFormat
+              value={price}
+              prefix="Rp. "
+              displayType="text"
+              thousandSeparator="."
+              decimalSeparator=","
+            />
+          </p>
         </td>
         <td>
           <div>
