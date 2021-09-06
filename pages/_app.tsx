@@ -26,6 +26,18 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>StoreGG - Get a New Experience in Gaming</title>
+        <meta
+          name="description"
+          content="Kami menyediakan jutaan cara untuk membantu players menjadi pemenang sejati"
+        />
+        <meta
+          property="og:title"
+          content="StoreGG - Get a New Experience in Gaming"
+        />
+        <meta
+          property="og:description"
+          content="Kami menyediakan jutaan cara untuk membantu players menjadi pemenang sejati"
+        />
 
         {/* Bootstrap css */}
         <link
