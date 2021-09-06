@@ -56,7 +56,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         ></script>
       </Head>
       <Component {...pageProps} />
-      <ToastContainer theme="colored" />
+      <ToastContainer theme="colored" autoClose={2500} />
     </>
   );
 }

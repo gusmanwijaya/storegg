@@ -10,13 +10,15 @@ interface MenuItemProps {
     | "ic-menu-messages"
     | "ic-menu-card"
     | "ic-menu-reward"
-    | "ic-menu-setting";
+    | "ic-menu-setting"
+    | "ic-menu-logout";
   active?: boolean;
-  href: string;
+  href?: string;
+  onClick?: () => void;
 }
 
 export default function MenuItem(props: Partial<MenuItemProps>) {
-  const { title, icon, active, href } = props;
+  const { title, icon, active, href, onClick } = props;
   const classItem = classNames({
     item: true,
     "mb-30": true,
@@ -25,14 +27,20 @@ export default function MenuItem(props: Partial<MenuItemProps>) {
 
   return (
     <>
-      <div className={classItem}>
+      <div className={classItem} onClick={onClick}>
         <div className="me-3">
           <Image src={`/icon/${icon}.svg`} width={25} height={25} alt="Icon" />
         </div>
         <p className="item-title m-0">
-          <Link href={href}>
-            <a className="text-lg text-decoration-none">{title}</a>
-          </Link>
+          {onClick ? (
+            <a role="button" className="text-lg text-decoration-none">
+              {title}
+            </a>
+          ) : (
+            <Link href={href}>
+              <a className="text-lg text-decoration-none">{title}</a>
+            </Link>
+          )}
         </p>
       </div>
     </>

@@ -49,26 +49,11 @@ export default function SideBar(props: SideBarProps) {
               href="/member/edit-profile"
               active={activeMenu === "settings"}
             />
-
-            <div className="item mb-30">
-              <div className="me-3">
-                <Image
-                  src={`/icon/ic-menu-logout.svg`}
-                  width={25}
-                  height={25}
-                  alt="Icon"
-                />
-              </div>
-              <p className="item-title m-0">
-                <a
-                  onClick={onLogout}
-                  role="button"
-                  className="text-lg text-decoration-none"
-                >
-                  Log Out
-                </a>
-              </p>
-            </div>
+            <MenuItem
+              title="Log Out"
+              icon="ic-menu-logout"
+              onClick={onLogout}
+            />
           </div>
           <Footer />
         </div>
