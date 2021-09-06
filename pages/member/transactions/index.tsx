@@ -10,8 +10,6 @@ interface TransactionProps {
 export default function Transactions(props: TransactionProps) {
   const { user } = props;
 
-  console.log("Data user login : ", user);
-
   return (
     <>
       <section className="transactions overflow-auto">
@@ -43,9 +41,7 @@ export async function getServerSideProps({ req }: GetServerSideProps) {
   }
 
   const jwtToken = Buffer.from(token, "base64").toString("ascii");
-  console.log("jwtToken : ", jwtToken);
   const payload: JWTPayloadTypes = jwtDecode(jwtToken);
-  console.log("payload : ", payload);
   const userFromPayload: UserTypes = payload.player;
   const IMG = process.env.NEXT_PUBLIC_IMG;
   userFromPayload.avatar = `${IMG}/${userFromPayload.avatar}`;

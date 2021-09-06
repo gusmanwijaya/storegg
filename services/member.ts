@@ -13,7 +13,7 @@ export async function getMemberOverview() {
   });
 }
 
-export async function getMemberTransactions(valueParams) {
+export async function getMemberTransactions(valueParams: string) {
   let params = "";
   if (valueParams === "all") {
     params = "";
@@ -26,5 +26,15 @@ export async function getMemberTransactions(valueParams) {
     url,
     method: "GET",
     token: true,
+  });
+}
+
+export async function getTransactionDetail(_id: string, token: string) {
+  const url = `${ROOT_API}/${API_VERSION}/players/history/${_id}/detail`;
+
+  return callAPI({
+    url,
+    method: "GET",
+    serverToken: token,
   });
 }
